@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
-<head>
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="header">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free Bootstrap Admin Template : Binary Admin</title>
@@ -29,12 +30,16 @@ xmlns:th="http://www.thymeleaf.org">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Binary admin</a> 
+                <a class="navbar-brand" href="/index">Binary admin</a> 
             </div>
-  <div style="color: white;
+  <div sec:authorize="!isAuthenticated()" style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="/login" class="btn btn-danger square-btn-adjust" >Logout</a> </div>
+font-size: 16px;"> <a href="/login" class="btn btn-danger square-btn-adjust" >Zaloguj</a> </div>
+<div sec:authorize="isAuthenticated()" style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;"> <a href="/logout" class="btn btn-danger square-btn-adjust" >Wyloguj</a> </div>
 </nav></div>
 
 <!-- NAV BAR -->
@@ -44,18 +49,21 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="/login" class="btn 
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 				<li class="text-center">
-                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+                    <img src="../../assets/img/find_user.png" class="user-image img-responsive"/>
 					</li>
 				
 					
                     <li>
-                        <a th:href="index.html"><i class="fa fa-dashboard fa-3x"></i> Strona główna</a>
+                        <a href="/index"><i class="fa fa-dashboard fa-3x"></i> Strona główna</a>
                     </li>
                      <li>
-                        <a th:href="registration.html"><i class="fa fa-desktop fa-3x"></i> Rejestracja</a>
+                        <a href="/registration"><i class="fa fa-desktop fa-3x"></i> Rejestracja</a>
                     </li>
                      <li>
-                        <a th:href="calendar.html"><i class="fa fa-table fa-3x"></i> Lista zawodów</a>
+                        <a href="/calendar"><i class="fa fa-table fa-3x"></i> Lista zawodów</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/users/profile" ><i class="fa fa-table fa-3x"></i> Profil</a>
                     </li>
                     </ul>
                

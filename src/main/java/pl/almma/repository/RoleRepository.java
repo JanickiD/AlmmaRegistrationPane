@@ -15,5 +15,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	
 	@Query("SELECT r FROM Role r WHERE id <> 3")
 	List<Role> findAllRolesExceptAdmin();
+
 	
 }

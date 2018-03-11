@@ -13,47 +13,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
+
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
+
 	private DataSource dataSource;
-	
+
+	@Autowired
+	public SecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder, DataSource dataSource) {
+		super();
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.dataSource = dataSource;
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth
-			.jdbcAuthentication()
-			.usersByUsernameQuery("SELECT email, pass, active FROM player where email=? ")
-			.authoritiesByUsernameQuery("SELECT p.email, r.role FROM player p inner join role r on p.role_id = r.id WHERE p.email = ?")
-			.dataSource(dataSource)
-			.passwordEncoder(bCryptPasswordEncoder);
+
+		auth.jdbcAuthentication().usersByUsernameQuery("SELECT email, pass, active FROM user where email = ?")
+				.authoritiesByUsernameQuery(
+						"SELECT u.email, r.role FROM user u inner join role r on u.role_id = r.id WHERE u.email = ?")
+				.dataSource(dataSource)
+				.passwordEncoder(bCryptPasswordEncoder);
+
 	}
-	
+
 	@Override
-	protected void configure(HttpSecurity http) {
-		try {
-			http
-				.authorizeRequests()
-				.antMatchers("/admin/*").hasAuthority("Admin")
-				.antMatchers("/trainer/*").hasAnyAuthority("Trainer", "Admin")
-				.antMatchers("/player/*").hasAnyAuthority("Player", "Trainer", "Admin")
-				.anyRequest().permitAll()
-				.and()
-				.formLogin().loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
-				.usernameParameter("email")
-				.passwordParameter("pass")
-				.and()
-				.logout().logoutUrl("/logout").logoutSuccessUrl("/");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/admin/*").hasAuthority("Admin").antMatchers("/trainer/*")
+				.hasAnyAuthority("Trainer", "Admin").antMatchers("/users/*")
+				.hasAnyAuthority("Player", "Trainer", "Admin")
+				.anyRequest().permitAll().and().formLogin()
+				.loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/calendar")
+				.usernameParameter("email").passwordParameter("pass").and().logout().logoutUrl("/logout")
+				.logoutSuccessUrl("/");
 	}
-	
-
-
-	
 }

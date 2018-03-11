@@ -3,61 +3,74 @@ package pl.almma.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.almma.model.Player;
-import pl.almma.service.PlayerService;
+import pl.almma.model.User;
+import pl.almma.service.UserService;
 import pl.almma.tools.PeselValidator;
 
 @Controller
 public class RegistrationController {
 
-	private PlayerService playerService;
+	private UserService userService;
 
 	@Autowired
-	public RegistrationController(PlayerService playerService) {
+	public RegistrationController(UserService userService) {
 		super();
-		this.playerService = playerService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
 
-		model.addAttribute("user", new Player());
-		model.addAttribute("roles", playerService.getAllRolesExceptAdmin());
+		model.addAttribute("user", new User());
+		model.addAttribute("roles", userService.getAllRolesExceptAdmin());
 
 		return "registration";
 
 	}
 
 	@PostMapping("/register")
-	public String save(@Valid @ModelAttribute Player player, BindingResult bindingResult, Model model) {
+	public String save(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			return "index";
 
 		}
-		
-		PeselValidator PESEL = new PeselValidator(player.getPesel());
-		if(PESEL.isValid()) {
-			Player savedUser = playerService.addUserWithRole(player);
-			System.out.println("dodany: " + savedUser);
+		try {
+			PeselValidator PESEL = new PeselValidator(user.getPesel());
+			if (PESEL.isValid()) {
+				User savedUser = userService.addUserWithRole(user);
+				System.out.println("dodany: " + savedUser);
 
-			model.addAttribute("status", "Rejestracja pomyślna!");
-			model.addAttribute("user", new Player());
-		} else {
+				model.addAttribute("status", "Rejestracja pomyślna!");
+				
+				return "login";
+			} else {
+				model.addAttribute("status", "Rejestracja nieudana! Sprawdz dane");
+				model.addAttribute("user", user);
+				
+			}
+
+			return "registration";
+		} catch (DuplicateKeyException e) {
 			model.addAttribute("status", "Rejestracja nieudana! Sprawdz dane");
-			model.addAttribute("user", player);
+			model.addAttribute("user", user);
+			
+			return "redirect:registration";
 		}
 
-		
+	}
 
-		return "registration";
-
+	@ExceptionHandler(DuplicateKeyException.class)
+	public String handleDuplicateEntry() {
+		return "Email już zarejestrowany!";
 	}
 }

@@ -1,5 +1,7 @@
 package pl.almma.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +13,10 @@ import javax.persistence.ManyToOne;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Player {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -43,9 +46,20 @@ public class Player {
 	@ManyToOne
 	private Role role;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date birthDate;
+	
+
 	
 	
-	
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
 	public boolean isActive() {
 		return active;
 	}
@@ -94,7 +108,7 @@ public class Player {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-	public Player(String name, String lastName, String email, String pesel, String pass, Role role, Boolean active) {
+	public User(String name, String lastName, String email, String pesel, String pass, Role role, Boolean active) {
 		super();
 		this.name = name;
 		this.lastName = lastName;
@@ -104,7 +118,7 @@ public class Player {
 		this.role = role;
 		this.active = active;
 	}
-	public Player() {
+	public User() {
 		super();
 	}
 	@Override

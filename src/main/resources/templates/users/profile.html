@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Bootstrap Admin Template : Binary Admin</title>
+<!-- BOOTSTRAP STYLES-->
+<link href="../../assets/css/bootstrap.css" rel="stylesheet" />
+<!-- FONTAWESOME STYLES-->
+<link href="../../assets/css/font-awesome.css" rel="stylesheet" />
+<!-- CUSTOM STYLES-->
+<link href="../../assets/css/custom.css" rel="stylesheet" />
+<!-- GOOGLE FONTS-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+</head>
+<body>
+	<div id="wrapper">
+		<nav th:replace="../templates/fragments/navi :: top_nav_bar"></nav>
+		<!-- /. NAV TOP  -->
+		<nav th:replace="../templates/fragments/navi :: navi"></nav>
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Twój profil</h2>
+
+
+					</div>
+				</div>
+				<!-- /. ROW  -->
+
+				<div class="col-md-6 col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Panel zawodnika</div>
+						<div class="panel-body">
+							<ul class="nav nav-tabs">
+								<li class=""><a href="#personal" data-toggle="tab">Dane
+										osobowe</a></li>
+								<li class="active"><a href="#club" data-toggle="tab">Klub</a>
+								</li>
+								<li class=""><a href="#settings" data-toggle="tab">Ustawienia</a>
+								</li>
+							</ul>
+
+							<div class="tab-content" th:object="${user}">
+								<div class="tab-pane fade" id="personal">
+									<h4>Informacje o Tobie:</h4>
+									<p>
+										<label> Imie: </label> <label class="form-control-static"
+											th:text="*{name}"></label>
+									</p>
+									<p>
+										<label> Nazwisko: </label> <label class="form-control-static"
+											th:text="*{lastName}"></label>
+									</p>
+									<p>
+										<label> PESEL: </label> <label class="form-control-static"
+											th:text="*{pesel}"></label>
+									</p>
+								</div>
+								<div class="tab-pane fade active in" id="club">
+									<h4>Informacje o klubie:</h4>
+									<p>
+										<label> tutaj będzie dodany klub </label> <label
+											class="form-control-static"></label>
+									</p>
+								</div>
+								<div class="tab-pane fade" id="settings">
+
+									<p>
+										<label> Adres e-mail: </label> <label
+											class="form-control-static" th:text="*{email}"></label>
+										<button type="reset" class="btn btn-primary">Zmień
+											email</button>
+									</p>
+
+									<p>
+										<button type="reset" class="btn btn-primary">Zmień
+											hasło</button>
+									</p>
+
+									<div class="well well-sm">
+										<div class="form-group">
+											<label>Dodaj nowe zdjęcie profilowe</label>
+											<form enctype="multipart/form-data" method="post"
+												th:action="@{saveImage}">
+												<input type="file" name="file" />
+												<br/>
+												<button type="submit" class="btn btn-primary">Wyślij plik</button>
+											</form>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+
+			</div>
+		</div>
+
+		<!-- /. PAGE INNER  -->
+		<!-- /. PAGE WRAPPER  -->
+	</div>
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script src="../../assets/js/jquery-1.10.2.js"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script src="../../assets/js/bootstrap.min.js"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script src="../../assets/js/jquery.metisMenu.js"></script>
+	<!-- CUSTOM SCRIPTS -->
+	<script src="../../assets/js/custom.js"></script>
+
+
+</body>
+</html>
