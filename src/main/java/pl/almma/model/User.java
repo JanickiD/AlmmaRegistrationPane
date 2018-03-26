@@ -49,9 +49,29 @@ public class User {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	
+	private String profileImageFileName;
+	
+	@ManyToOne
+	@JoinColumn(name="club_id")
+	private Club club;
+	
 
-	
-	
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
+
+	public String getProfileImageFileName() {
+		return profileImageFileName;
+	}
+
+	public void setProfileImageFileName(String profileImageFileName) {
+		this.profileImageFileName = profileImageFileName;
+	}
+
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -108,7 +128,7 @@ public class User {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-	public User(String name, String lastName, String email, String pesel, String pass, Role role, Boolean active) {
+	public User(String name, String lastName, String email, String pesel, String pass, Role role, Boolean active, Club club) {
 		super();
 		this.name = name;
 		this.lastName = lastName;
@@ -117,6 +137,7 @@ public class User {
 		this.pass = pass;
 		this.role = role;
 		this.active = active;
+		this.club = club;
 	}
 	public User() {
 		super();

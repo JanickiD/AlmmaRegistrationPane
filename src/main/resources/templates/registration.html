@@ -51,12 +51,17 @@
 									placeholder="Wpisz porawny adres email" th:field="*{email}" />
 								<br /> <label>PESEL</label> <input class="form-control"
 									placeholder="Wpisz numer PESEL" th:field="*{pesel}" /> <br />
+								<label>Klub</label> <label>Hasło</label> <input type="password"
+									class="form-control" placeholder="Wpisz hasło. Minimum 4 znaki"
+									th:field="*{pass}" /> <br />
+									<select class="form-control"
+									th:field="*{club}">
+									<option th:each="club : ${clubList}"
+										th:value="${club.club_id}" th:text="${club.name}" />
+										</select>
+							</div>
 
-								<label>Hasło</label> <input type="password" class="form-control"
-									placeholder="Wpisz hasło. Minimum 4 znaki" th:field="*{pass}" />
-								<br />
-
-								<!-- <div class="btn-group" th:object="${roles}">
+							<!-- <div class="btn-group" th:object="${roles}">
 									<button class="btn btn-success">Rodzaj użytkownika</button>
 									<button data-toggle="dropdown"
 										class="btn btn-success dropdown-toggle">
@@ -67,43 +72,40 @@
 									</ul>
 								</div> -->
 
-								<div class="btn-group">
-									<select class="form-control" th:field="*{role}">
-										<option  value ="1"> Player</option>
-										<option  value ="2"> Trainer</option>
-									</select>
-								</div>
-
-
+							<div class="btn-group">
+								<select class="form-control" th:field="*{role}">
+									<option value="1">Player</option>
+									<option value="2">Trainer</option>
+								</select>
 							</div>
 
-							<div class="form-group">
-								<button type="submit" class="btn btn-danger square-btn-adjust"
-									id="regButton">Zarejestruj</button>
-							</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-danger square-btn-adjust"
+							id="regButton">Zarejestruj</button>
+					</div>
 
-						</form>
-						<!-- End Form Elements -->
-					</div>
+					</form>
+					<!-- End Form Elements -->
 				</div>
-				<!-- /. ROW  -->
-				<div class="row">
-					<div class="col-md-12">
-						<h3>More Customization</h3>
-						<p>
-							For more customization for this template or its components please
-							visit official bootstrap website i.e getbootstrap.com or <a
-								href="http://getbootstrap.com/components/" target="_blank">click
-								here</a> . We hope you will enjoy our template. This template is
-							easy to use, light weight and made with love by binarycart.com
-						</p>
-					</div>
-				</div>
-				<!-- /. ROW  -->
 			</div>
-			<!-- /. PAGE INNER  -->
+			<!-- /. ROW  -->
+			<div class="row">
+				<div class="col-md-12">
+					<h3>More Customization</h3>
+					<p>
+						For more customization for this template or its components please
+						visit official bootstrap website i.e getbootstrap.com or <a
+							href="http://getbootstrap.com/components/" target="_blank">click
+							here</a> . We hope you will enjoy our template. This template is easy
+						to use, light weight and made with love by binarycart.com
+					</p>
+				</div>
+			</div>
+			<!-- /. ROW  -->
 		</div>
-		<!-- /. PAGE WRAPPER  -->
+		<!-- /. PAGE INNER  -->
+	</div>
+	<!-- /. PAGE WRAPPER  -->
 	</div>
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->

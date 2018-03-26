@@ -27,6 +27,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h2>Twój profil</h2>
+						<br />
+
+						<h4 th:utext="${status}"></h4>
+						<br />
 
 
 					</div>
@@ -38,10 +42,9 @@
 						<div class="panel-heading">Panel zawodnika</div>
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class=""><a href="#personal" data-toggle="tab">Dane
+								<li class="active"><a href="#personal" data-toggle="tab">Dane
 										osobowe</a></li>
-								<li class="active"><a href="#club" data-toggle="tab">Klub</a>
-								</li>
+								<li class=""><a href="#club" data-toggle="tab">Klub</a></li>
 								<li class=""><a href="#settings" data-toggle="tab">Ustawienia</a>
 								</li>
 							</ul>
@@ -71,26 +74,34 @@
 								</div>
 								<div class="tab-pane fade" id="settings">
 
-									<p>
-										<label> Adres e-mail: </label> <label
-											class="form-control-static" th:text="*{email}"></label>
-										<button type="reset" class="btn btn-primary">Zmień
-											email</button>
-									</p>
+									<div class="well well-sm">
+										<div class="form-group">
+											<p>
+												<label> Adres e-mail: </label> <label
+													class="form-control-static" th:text="*{email}"></label><br/>
+												<button type="reset" class="btn btn-primary">Zmień
+													email</button>
+											</p>
+										</div>
+									</div>
 
-									<p>
-										<button type="reset" class="btn btn-primary">Zmień
-											hasło</button>
-									</p>
+									<div class="well well-sm">
+										<div class="form-group">
+											<p>
+												<button type="reset" class="btn btn-primary">Zmień
+													hasło</button>
+											</p>
+										</div>
+									</div>
 
 									<div class="well well-sm">
 										<div class="form-group">
 											<label>Dodaj nowe zdjęcie profilowe</label>
 											<form enctype="multipart/form-data" method="post"
 												th:action="@{saveImage}">
-												<input type="file" name="file" />
-												<br/>
-												<button type="submit" class="btn btn-primary">Wyślij plik</button>
+												<input type="file" name="file" /> <br />
+												<button type="submit" class="btn btn-primary">Wyślij
+													plik</button>
 											</form>
 										</div>
 									</div>
@@ -100,7 +111,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 
 
 			</div>

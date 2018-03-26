@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.almma.model.User;
+import pl.almma.repository.ClubRepository;
 import pl.almma.service.UserService;
 import pl.almma.tools.PeselValidator;
 
@@ -20,18 +21,23 @@ import pl.almma.tools.PeselValidator;
 public class RegistrationController {
 
 	private UserService userService;
+	private ClubRepository clubRepository;
 
 	@Autowired
-	public RegistrationController(UserService userService) {
+	public RegistrationController(UserService userService, ClubRepository clubRepository) {
 		super();
 		this.userService = userService;
+		this.clubRepository = clubRepository;
 	}
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
+		
 
+		
 		model.addAttribute("user", new User());
 		model.addAttribute("roles", userService.getAllRolesExceptAdmin());
+		model.addAttribute("clubList", clubRepository.findAll());
 
 		return "registration";
 

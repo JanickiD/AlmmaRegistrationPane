@@ -99,6 +99,12 @@ public class UserService {
 	public List<Role> getAllRolesExceptAdmin() {
 		return roleRepository.findAllRolesExceptAdmin();
 	}
+	
+	public User setprofileImageFileName(User user, String fileName) {
+		user.setProfileImageFileName(fileName);
+		return userRepository.save(user);
+	}
+
 
 	
 }

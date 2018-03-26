@@ -2,7 +2,6 @@ package pl.almma.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
@@ -43,7 +42,7 @@ public class UserController {
 
 	@PostMapping("/saveImage")
 	public String handleFileUpload(@RequestPart("file") MultipartFile file, Model model, User user) {
-		
+		String status = null;
 		User loggedUser = userService.findLoggedUser();
 		
 		if (!file.isEmpty()) {
@@ -61,18 +60,31 @@ public class UserController {
 				stream.write(bytes);
 				stream.close();
 				
+				userService.setprofileImageFileName(loggedUser, uuid.toString());
+				
+				status = "Plik załadowano poprawnie!";
+				
 
 			} catch (Exception e) {
 				System.out.println("File has not been uploaded" +" " + e);
 				e.printStackTrace();
+				status = "Nie udało się załadować pliku!";
 			}
 		} else {
 			System.out.println("Uploaded file is empty");
+			status = "Nie udało się załadować pliku!";
 		}
 
 		model.addAttribute("user", loggedUser);
-		return "users/profile";
+		model.addAttribute("status", status);
+		return "/users/profile";
 	}
+	
+	@GetMapping("/saveImage")
+	public String goToProfile() {
+		return "redirect:/users/profile#settings";
+	}
+	
 	
 
 	
