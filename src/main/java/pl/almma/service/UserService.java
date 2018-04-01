@@ -87,8 +87,11 @@ public class UserService {
 	
 	
 	public User findLoggedUser() {
-		return userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		User loggedUser = userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		return loggedUser;
 	}
+	
+
 	
 
 	/*
@@ -104,7 +107,18 @@ public class UserService {
 		user.setProfileImageFileName(fileName);
 		return userRepository.save(user);
 	}
-
+	
+/*	public User changeClub(User user, Club club) {
+		user.setClub(club);
+		return userRepository.save(user);
+	}*/
+	
+	
+	public User editUser(User user) {
+/*		User userById = findLoggedUser();
+		user.setPass(userById.getPass());*/
+		return userRepository.save(user);
+	}
 
 	
 }
