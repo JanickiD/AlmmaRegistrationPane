@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -108,17 +110,16 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-/*	public User changeClub(User user, Club club) {
-		user.setClub(club);
-		return userRepository.save(user);
-	}*/
+
 	
 	
 	public User editUser(User user) {
-/*		User userById = findLoggedUser();
-		user.setPass(userById.getPass());*/
 		return userRepository.save(user);
 	}
 
+	
+	public Page<User> getAll(Pageable pageable){
+		return userRepository.findAll(pageable);
+	}
 	
 }

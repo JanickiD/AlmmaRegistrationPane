@@ -29,6 +29,8 @@ public class UserController {
 	private UserService userService;
 
 	private ClubRepository clubRepository;
+	
+	
 
 	@Autowired
 	public UserController(UserService userService, ClubRepository clubRepository) {
@@ -115,6 +117,10 @@ public class UserController {
 		}
 		
 		userService.editUser(user);
+		
+		User loggedUser = userService.findLoggedUser();
+		
+		model.addAttribute("user", loggedUser);
 		
 		return "redirect:/";
 	}

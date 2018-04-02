@@ -65,6 +65,9 @@ font-size: 16px;"> <a href="/logout" class="btn btn-danger square-btn-adjust" >W
                     <li sec:authorize="isAuthenticated()">
                         <a href="/users/profile" ><i class="fa fa-table fa-3x"></i> Profil</a>
                     </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/admin/panel"><i class="fa fa-bar-chart-o fa-3x"></i> Admin</a>
+                    </li>
                     </ul>
                
             </div>

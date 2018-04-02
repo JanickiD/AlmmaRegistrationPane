@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/admin/*").hasAuthority("Admin").antMatchers("/trainer/*")
-				.hasAnyAuthority("Trainer", "Admin").antMatchers("/users/*")
-				.hasAnyAuthority("Player", "Trainer", "Admin")
+		http.authorizeRequests().antMatchers("/admin/*").hasAuthority("ROLE_ADMIN").antMatchers("/trainer/*")
+				.hasAnyAuthority("Trainer", "ROLE_ADMIN").antMatchers("/users/*")
+				.hasAnyAuthority("Player", "Trainer", "ROLE_ADMIN")
 				.anyRequest().permitAll().and().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/calendar")
 				.usernameParameter("email").passwordParameter("pass").and().logout().logoutUrl("/logout")
