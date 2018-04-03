@@ -39,7 +39,8 @@ font-size: 16px;"> <a href="/login" class="btn btn-danger square-btn-adjust" >Za
 <div sec:authorize="isAuthenticated()" style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <a href="/logout" class="btn btn-danger square-btn-adjust" >Wyloguj</a> </div>
+font-size: 16px;"> <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()"><button type="submit" class="btn btn-danger square-btn-adjust">Wyloguj</button></form>
+<a href="/login" class="btn btn-danger square-btn-adjust" sec:authorize="!isAuthenticated()">Zaloguj</a> </div>
 </nav></div>
 
 <!-- NAV BAR -->
@@ -56,7 +57,7 @@ font-size: 16px;"> <a href="/logout" class="btn btn-danger square-btn-adjust" >W
                     <li>
                         <a href="/index"><i class="fa fa-dashboard fa-3x"></i> Strona główna</a>
                     </li>
-                     <li>
+                     <li sec:authorize="!isAuthenticated()">
                         <a href="/registration"><i class="fa fa-desktop fa-3x"></i> Rejestracja</a>
                     </li>
                      <li>

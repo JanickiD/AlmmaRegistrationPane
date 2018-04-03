@@ -24,10 +24,4 @@ public class ServiceController {
 		return "index";
 	}
 	
-	@GetMapping("/logout")
-	public String logout() {
-		return "login";
-	}
-
-	
 }
