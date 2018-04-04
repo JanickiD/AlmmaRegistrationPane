@@ -114,6 +114,10 @@ public class UserService {
 	
 	
 	public User editUser(User user) {
+		User findById = findById(user.getId());
+		user.setPass(findById.getPass());
+		user.setBirthDate(getBirthDateFromPesel(user));
+			
 		return userRepository.save(user);
 	}
 

@@ -29,34 +29,50 @@
 
 						<div class="well well-lg">
 							<h4>Edycja danych</h4>
-							<br/>
-							<br/>
-							
-							<form th:action="@{/users/edit}" method="post"
+							<br /> <br />
+							<form th:action="@{/admin/userEdit}" method="post"
 								th:object="${user}">
-								<input type="hidden" th:field="*{id}" />
-								<input type="hidden" th:field="*{active}" />
-								<input type="hidden" th:field="*{birthDate}" />
-								<input type="hidden" th:field="*{lastName}" />
-								<input type="hidden" th:field="*{name}" />
-								<input type="hidden" th:field="*{pass}" />
-								<input type="hidden" th:field="*{role.id}" />
-								<input type="hidden" th:field="*{pesel}" />
-								E-mail:
+								<input type="hidden" th:field="*{id}" /> <input type="hidden"
+									th:field="*{active}" /> <input type="hidden"
+									th:field="*{birthDate}" /> <input type="hidden"
+									th:field="*{pass}" />
+
+
+								<div class="form-group">
+									<label>Imię</label> <input class="form-control"
+										th:field="*{name}" />
+								</div>
+								<div class="form-group">
+									<label>Nazwisko</label> <input class="form-control"
+										th:field="*{lastName}" />
+								</div>
+								<div class="form-group">
+									<label>Pesel</label> <input class="form-control"
+										th:field="*{pesel}" />
+								</div>
+
+								<div class="form-group">
+									<label>Rola</label> <select class="form-control"
+										th:field="*{role.id}">
+										<option th:each="role :${roles}" th:value="${role.id}"
+											th:text="${role.role}"></option>
+									</select>
+								</div>
+								<label>E-mail:</label>
 								<div class="form-group input-group">
 									<span class="input-group-addon">@</span> <input type="text"
 										class="form-control" th:field="*{email}" />
 								</div>
 
 								<div>
-									<p><h5>Nowy klub:</h5>
-										<select class="form-control" th:field="${user.club}">
-											<option th:each="club : ${clubList}"
-												th:value="${club.club_id}" th:text="${club.name}" />
-										</select>
-									</p>
+									<label>Nowy klub:</label> <select class="form-control"
+										th:field="${user.club}">
+										<option th:each="club : ${clubList}"
+											th:value="${club.club_id}" th:text="${club.name}" />
+									</select>
 								</div>
-								<button type="submit" class="btn btn-default">Zmień</button>
+								<button type="submit" class="btn btn-primary">Zmień</button>
+								<span th:utext="${status}"></span>
 
 
 

@@ -22,6 +22,7 @@ public class RegistrationController {
 
 	private UserService userService;
 	private ClubRepository clubRepository;
+	private PeselValidator peselValidator;
 
 	@Autowired
 	public RegistrationController(UserService userService, ClubRepository clubRepository) {

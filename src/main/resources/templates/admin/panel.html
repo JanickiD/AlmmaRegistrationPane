@@ -25,18 +25,18 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<h2>Panel Administratorra</h2>
+						<h2>Panel Administratora</h2>
 
 
 						<div class="panel panel-default">
-							<div class="panel-heading"></div>
+							<div class="panel-heading"><span th:utext="${status}"></span></div>
 							<div class="panel-body">
 								<ul class="nav nav-tabs">
 									<li class=""><a href="#clubs" data-toggle="tab">Kluby</a>
 									</li>
 									<li class=""><a href="#competitions" data-toggle="tab">Zawody</a>
 									</li>
-									<li class=""><a href="#articles" data-toggle="tab">Artyuły</a>
+									<li class=""><a href="#articles" data-toggle="tab">Artykuły</a>
 									</li>
 									<li class="active"><a href="#players" data-toggle="tab">Zawodnicy</a>
 									</li>
@@ -129,7 +129,7 @@
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
 																			aria-label="Platform(s): activate to sort column ascending"
-																			>e-mail</th>
+																			style="width: 	180px;">e-mail</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
@@ -176,9 +176,9 @@
 																		<td class="center " th:text="${user.pesel}"></td>
 																		<td class="center " th:text="${user.club.name}"></td>
 																		<td class="center " th:text="${user.active}"></td>
-																		<td class="center "><a th:href="${'/users/view/'+user.id}">Zobacz</a></td>
-																		<td class="center "><a th:href="${'/users/edit/'+user.id}">Edytuj</a></td>
-																		<td class="center "><a th:href="${'/users/delete/'+user.id}">Zablokuj</a></td>
+																		<td class="center "><a th:href="${'/admin/view/'+user.id}">Zobacz</a></td>
+																		<td class="center "><a th:href="${'/admin/userEdit/'+user.id}">Edytuj</a></td>
+																		<td class="center "><a th:href="${'/admin/delete/'+user.id}">Zablokuj</a></td>
 																	</tr>
 
 																</tbody>

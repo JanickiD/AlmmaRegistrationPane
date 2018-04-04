@@ -20,23 +20,25 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pl.almma.model.User;
 import pl.almma.repository.ClubRepository;
+import pl.almma.repository.UserRepository;
 import pl.almma.service.UserService;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
+	private UserRepository userRepository;
 	private UserService userService;
-
 	private ClubRepository clubRepository;
 	
 	
 
 	@Autowired
-	public UserController(UserService userService, ClubRepository clubRepository) {
+	public UserController(UserService userService, ClubRepository clubRepository, UserRepository userRepository) {
 		super();
 		this.userService = userService;
 		this.clubRepository = clubRepository;
+		this.userRepository = userRepository;
 	}
 
 	@GetMapping("/profile")
@@ -116,7 +118,7 @@ public class UserController {
 			return "redirect:/users/profile";
 		}
 		
-		userService.editUser(user);
+		userRepository.save(user);
 		
 		User loggedUser = userService.findLoggedUser();
 		
@@ -124,5 +126,7 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	
+
 	
 }
