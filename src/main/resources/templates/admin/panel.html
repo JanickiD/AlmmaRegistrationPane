@@ -29,7 +29,9 @@
 
 
 						<div class="panel panel-default">
-							<div class="panel-heading"><span th:utext="${status}"></span></div>
+							<div class="panel-heading">
+								<span th:utext="${status}"></span>
+							</div>
 							<div class="panel-body">
 								<ul class="nav nav-tabs">
 									<li class=""><a href="#clubs" data-toggle="tab">Kluby</a>
@@ -66,22 +68,46 @@
 											qui officia deserunt mollit anim id est laborum.</p>
 									</div>
 									<div class="tab-pane fade" id="articles">
-										<h4>Messages Tab</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit, sed do eiusmod tempor incididunt ut labore et dolore
-											magna aliqua. Ut enim ad minim veniam, quis nostrud
-											exercitation ullamco laboris nisi ut aliquip ex ea commodo
-											consequat. Duis aute irure dolor in reprehenderit in
-											voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-											Excepteur sint occaecat cupidatat non proident, sunt in culpa
-											qui officia deserunt mollit anim id est laborum.</p>
+										<h4>Lista artukułów</h4>
+										<div class="col-md12">
+											<!--    Hover Rows  -->
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="table-responsive">
+														<table class="table table-hover">
+															<thead>
+																<tr>
+																	<th>#</th>
+																	<th>Data</th>
+																	<th>Tytuł</th>
+																	<th>Autor</th>
+																	<th>Widoczny</th>
+																	<th>Edycja</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr th:each="article : ${articles}">
+																	<td th:text="${article.id}"></td>
+																	<td th:text="${article.date}"></td>
+																	<td th:text="${article.date}"></td>
+																	<td th:text="${article.date}"></td>
+																	<td th:text="${article.date}"></td>
+																	<td><a th:href="'/articles/edit/'+article.id">Edycja</a></td>
+																</tr>
+															</tbody>
+														</table>
+														asdf
+													</div>
+												</div>
+											</div>
+											<!-- End  Hover Rows  -->
+										</div>
 									</div>
 									<div class="tab-pane fade active in" id="players">
-									<br/>
+										<br />
 										<div class="col-md-12">
 											<!-- Advanced Tables -->
 											<div class="panel panel-default">
-												<div class="panel-heading">Lista zawodników</div>
 												<div class="panel-body">
 													<div class="table-responsive">
 														<div id="dataTables-example_wrapper"
@@ -118,69 +144,59 @@
 																		<th class="sorting_asc" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Imię</th>
+																			aria-label="Rendering engine: activate to sort column ascending">Imię</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
-																			aria-label="Browser: activate to sort column ascending"
-																			>Nazwisko</th>
+																			aria-label="Browser: activate to sort column ascending">Nazwisko</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
 																			aria-label="Platform(s): activate to sort column ascending"
-																			style="width: 	180px;">e-mail</th>
+																			style="width: 180px;">e-mail</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
-																			aria-label="Engine version: activate to sort column ascending"
-																			>Data urodzenia</th>
+																			aria-label="Engine version: activate to sort column ascending">Data
+																			urodzenia</th>
 																		<th class="sorting" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1"
-																			aria-label="CSS grade: activate to sort column ascending"
-																			>Pesel</th>
+																			aria-label="CSS grade: activate to sort column ascending">Pesel</th>
 																		<th class="sorting_asc" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Klub</th>
+																			aria-label="Rendering engine: activate to sort column ascending">Klub</th>
 																		<th class="sorting_asc" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Aktywny</th>
+																			aria-label="Rendering engine: activate to sort column ascending">Aktywny</th>
 																		<th class="sorting_asc" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Zobacz</th>
+																			aria-label="Rendering engine: activate to sort column ascending">Zobacz</th>
 																		<th class="sorting_asc" tabindex="0"
 																			aria-controls="dataTables-example" rowspan="1"
 																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Edycja</th>
-																		<th class="sorting_asc" tabindex="0"
-																			aria-controls="dataTables-example" rowspan="1"
-																			colspan="1" aria-sort="ascending"
-																			aria-label="Rendering engine: activate to sort column ascending"
-																			>Zablokuj</th>
+																			aria-label="Rendering engine: activate to sort column ascending">Edycja</th>
 																	</tr>
 																</thead>
 																<tbody>
-																	<tr class="gradeA odd" th:each= "user : ${users}">
+																	<tr class="gradeA odd" th:each="user : ${users}">
 																		<td class="sorting_1" th:text="${user.name}"></td>
 																		<td class=" " th:text="${user.lastName}"></td>
 																		<td class=" " th:text="${user.email}"></td>
 																		<td class="center " th:text="${{user.birthDate}}"></td>
 																		<td class="center " th:text="${user.pesel}"></td>
 																		<td class="center " th:text="${user.club.name}"></td>
-																		<td class="center " th:text="${user.active}"></td>
-																		<td class="center "><a th:href="${'/admin/view/'+user.id}">Zobacz</a></td>
-																		<td class="center "><a th:href="${'/admin/userEdit/'+user.id}">Edytuj</a></td>
-																		<td class="center "><a th:href="${'/admin/delete/'+user.id}">Zablokuj</a></td>
+																		<td class="center " th:switch="${user.active}"><label
+																			th:case="true">tak</label> <label th:case="false">nie</label>
+																		</td>
+																		<td class="center "><a
+																			th:href="${'/admin/view/'+user.id}">Zobacz</a></td>
+																		<td class="center "><a
+																			th:href="${'/admin/userEdit/'+user.id}">Edytuj</a></td>
 																	</tr>
-
 																</tbody>
 															</table>
 															<div class="row">
@@ -227,7 +243,7 @@
 
 												</div>
 											</div>
-							
+
 											<!--End Advanced Tables -->
 										</div>
 									</div>

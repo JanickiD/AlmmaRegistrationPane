@@ -26,6 +26,16 @@ public class Article {
 	private User author;
 	
 	private String content;
+	
+	private Boolean visible;
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
 
 	public long getId() {
 		return id;
@@ -67,13 +77,14 @@ public class Article {
 		this.content = content;
 	}
 
-	public Article(long id, Date date, String title, User author, String content) {
+	public Article(long id, Date date, String title, User author, String content, Boolean visible) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.title = title;
 		this.author = author;
 		this.content = content;
+		this.visible = visible;
 	}
 
 	public Article() {
@@ -83,8 +94,10 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", date=" + date + ", title=" + title + ", author=" + author + ", content="
-				+ content + "]";
+				+ content + ", visible=" + visible + "]";
 	}
+
+	
 	
 	
 	

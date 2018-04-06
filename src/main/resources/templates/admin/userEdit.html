@@ -33,7 +33,6 @@
 							<form th:action="@{/admin/userEdit}" method="post"
 								th:object="${user}">
 								<input type="hidden" th:field="*{id}" /> <input type="hidden"
-									th:field="*{active}" /> <input type="hidden"
 									th:field="*{birthDate}" /> <input type="hidden"
 									th:field="*{pass}" />
 
@@ -71,7 +70,14 @@
 											th:value="${club.club_id}" th:text="${club.name}" />
 									</select>
 								</div>
-								<button type="submit" class="btn btn-primary">Zmień</button>
+								<div>
+								<p>
+								<label>Aktywny</label>      <input type="checkbox" th:field="*{active}" />
+								</p>
+								</div>
+								<p>
+								<button type="submit" class="btn btn-primary">Zmień</button>       <a th:href="${'/admin/panel'}"><button type="button" class="btn btn-primary">Powrót</button></a>
+								</p>
 								<span th:utext="${status}"></span>
 
 

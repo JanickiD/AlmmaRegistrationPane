@@ -13,8 +13,8 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<div class="panel panel-default">
-							<div class="panel-heading">Podgląd zawodnika</div>
+						<!-- <div class="panel panel-default"> -->
+							<div class="panel-heading"><h2>Podgląd zawodnika </h2></div>
 							<div class="panel-body">
 								<div class="panel-group" id="accordion">
 									<div class="panel panel-default">
@@ -24,8 +24,9 @@
 													href="#personal">Dane personalne</a>
 											</h4>
 										</div>
-										<div id="personal" class="panel-collapse in"
-											style="height: auto;">
+										<div id="personal"  class="panel-collapse collapse" style="height: auto;">
+										<!-- class="panel-collapse in" --> 
+											
 											<div class="panel-body">
 												<form th:object="${user}">
 													<input type="hidden" th:field="*{id}" />
@@ -52,80 +53,38 @@
 													</p>
 
 												</form>
-												<button class="btn btn-primary">
+												<a th:href="${'/admin/userEdit/'+user.id}"><button class="btn btn-primary">
 													<i class="fa fa-edit "></i> Edit
-												</button>
+												</button></a>
 											</div>
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse" data-parent="#accordion"
-															href="#collapseThree" class="collapsed">Statystyki</a>
-													</h4>
-												</div>
-												<div id="collapseThree" class="panel-collapse collapse">
-													<div class="panel-body">Lorem ipsum dolor sit amet,
-														consectetur adipisicing elit, sed do eiusmod tempor
-														incididunt ut labore et dolore magna aliqua. Ut enim ad
-														minim veniam, quis nostrud exercitation ullamco laboris
-														nisi ut aliquip ex ea commodo consequat. Duis aute irure
-														dolor in reprehenderit in voluptate velit esse cillum
-														dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-														cupidatat non proident, sunt in culpa qui officia deserunt
-														mollit anim id est laborum.</div>
-												</div>
-											</div>
-
 										</div>
-										<form th:action="@{/admin/panel}" method="get">
-											<button type="submit" class="btn btn-primary">Powrót</button>
-										</form>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion"
+													href="#collapseThree" class="collapsed">Statystyki</a>
+											</h4>
+										</div>
+									</div>
+									<div id="collapseThree" class="panel-collapse collapse">
+										<div class="panel-body">Lorem ipsum dolor sit amet,
+											consectetur adipisicing elit, sed do eiusmod tempor
+											incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+											veniam, quis nostrud exercitation ullamco laboris nisi ut
+											aliquip ex ea commodo consequat. Duis aute irure dolor in
+											reprehenderit in voluptate velit esse cillum dolore eu fugiat
+											nulla pariatur. Excepteur sint occaecat cupidatat non
+											proident, sunt in culpa qui officia deserunt mollit anim id
+											est laborum.</div>
 									</div>
 								</div>
-							</div>
-
-							<!-- 						<div class="panel panel-primary">
-							<div class="panel-heading">Podgląd zawodnika</div>
-							<div class="panel-body">
-								<form th:object="${user}">
-									<input type="hidden" th:field="*{id}" />
-									<p>
-										Imię: <label th:text="*{name}"></label>
-									</p>
-									<p>
-										Nazwisko: <label th:text="*{lastName}"></label>
-									</p>
-									<p>
-										Data urodzenia: <label th:text="*{{birthDate}}"></label>
-									</p>
-									<p>
-										Pesel: <label th:text="*{pesel}"></label>
-									</p>
-									<p>
-										Klub: <label th:text="*{club.name}"></label>
-									</p>
-									<p>
-										email: <label th:text="*{email}"></label>
-									</p>
-									<p>
-										Aktywny: <label th:text="*{active}"></label>
-									</p>
-
-								</form>
 
 							</div>
-							<div class="panel-footer">
-								<form th:action="@{/admin/panel}" method="get">
-									<button type="submit" class="btn btn-primary">Powrót</button>
-								</form>
-								<button class="btn btn-primary">
-									<i class="fa fa-edit "></i> Edit
-								</button>
-							</div>
-						</div> -->
-						</div>
-
-
+					<!-- 	</div> -->
+						<form th:action="@{/admin/panel}" method="get">
+							<button type="submit" class="btn btn-primary">Powrót</button>
+						</form>
 					</div>
 				</div>
 				<!-- /. ROW  -->

@@ -15,28 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.almma.model.User;
 import pl.almma.repository.ClubRepository;
+import pl.almma.service.ArticleService;
 import pl.almma.service.UserService;
 import pl.almma.tools.PeselValidator;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
-	UserService userService;
-	ClubRepository clubRepository;
-	
+
+	private UserService userService;
+	private ClubRepository clubRepository;
+	private ArticleService articleService;
+
 	@Autowired
-	public AdminController(UserService userService, ClubRepository clubRepository) {
+	public AdminController(UserService userService, ClubRepository clubRepository, ArticleService articleService) {
 		super();
 		this.userService = userService;
 		this.clubRepository = clubRepository;
+		this.articleService = articleService;
 	}
-
 
 	@GetMapping("/panel")
 	public String panel(Model model, Pageable pageable) {
 		
 		model.addAttribute("users", userService.getAll(pageable));
+		
+		model.addAttribute("articles", articleService.getAll(pageable));
 		
 		
 		return "/admin/panel";
@@ -44,40 +48,41 @@ public class AdminController {
 
 	@GetMapping("/view/{id}")
 	public String viewProfile(@PathVariable long id, Model model) {
-		
+
 		model.addAttribute("user", userService.findById(id));
-		
+
 		return "/admin/view";
 	}
-	
+
 	@GetMapping("/userEdit/{id}")
 	public String editProfile(@PathVariable long id, Model model) {
-		
+
 		model.addAttribute("user", userService.findById(id));
 		model.addAttribute("clubList", clubRepository.findAll());
 		model.addAttribute("roles", userService.getAllRoles());
-		
+
 		return "/admin/userEdit";
 	}
-	
+
 	@PostMapping("/userEdit")
-	public String saveEditedProfile(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, Pageable pageable) {
-		
-		if(bindingResult.hasErrors()) {
+	public String saveEditedProfile(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
+			Pageable pageable) {
+
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("status", "Błędne dane. Zweryfikuj ");
 			return "/admin/userEdit";
 		}
 		model.addAttribute("users", userService.getAll(pageable));
 		PeselValidator peselValidator = new PeselValidator(user.getPesel());
-		
+
 		if (!peselValidator.isValid()) {
 			model.addAttribute("status", "Niepoprawny Pesel. Zweryfikuj ");
 			return "/admin/panel";
 		}
-		
+
 		userService.editUser(user);
 		model.addAttribute("status", "Dane zawodnika zmodyfikowane poprawnie!");
-		
+
 		return "/admin/panel";
 	}
 }
