@@ -5,6 +5,17 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Free Bootstrap Admin Template : Binary Admin</title>
+
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet" />
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css"
+	rel="stylesheet" />
 <!-- BOOTSTRAP STYLES-->
 <link href="../../assets/css/bootstrap.css" rel="stylesheet" />
 <!-- FONTAWESOME STYLES-->
@@ -29,25 +40,36 @@
 					<div class="col-md-12">
 						<h2>Nowy Artykuł</h2>
 						<div>
-							<form th:action="@{articles/add}" th:object="${article}">
+							<form th:action="@{/article/add}" th:object="${article}"
+								method="post">
 								<p>
 									<label>Tytuł:</label><br /> <input type="text"
 										th:field="*{title}" />
 								</p>
 								<p>
-									<textarea rows="10" cols="1"  id="summernote" th:field="*{content}"></textarea>
+									<label>Treść</label><br />
+									<textarea rows="10" cols="100" id="summernote"
+										name="editordata" th:field="*{content}"></textarea>
 								</p>
 								<p>
-								<label>Data wprowadzenia:</label><br/>
-								<input type="date" th:field="*{date}"/>
-								</p>
-								<p><label>Pokaż artykuł na stronie głównej:</label>
+									<label>Data wprowadzenia:</label><br /> <input type="date"
+										th:field="*{date}" />
 								</p>
 								<p>
-								<button type="submit" class="btn-success btn-sm">Dodaj artykuł</button>
-								
+									<label>Pokaż artykuł na stronie głównej:</label> <input
+										type="checkbox" th:field="*{visible}" />
+								</p>
+								<p>
+									<button type="submit" class="btn-success btn-sm">Dodaj
+										artykuł</button>
+
 								</p>
 							</form>
+							<script>
+								$(document).ready(function() {
+									$('#summernote').summernote();
+								});
+							</script>
 						</div>
 
 					</div>
@@ -72,6 +94,10 @@
 	<script src="../../assets/js/custom.js"></script>
 	<!-- SUMMERNOTE SCRPITS  -->
 	<script src="../../assets/js/summernote.js"></script>
+
+
+	<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 
 
 </body>
