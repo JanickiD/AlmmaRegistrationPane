@@ -39,7 +39,6 @@ public class AdminController {
 	public String panel(Model model, Pageable pageable) {
 		
 		model.addAttribute("users", userService.getAll(pageable));
-		
 		model.addAttribute("articles", articleService.getAll(pageable));
 		
 		

@@ -39,8 +39,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h2>Nowy Artykuł</h2>
+						
+						<label th:utext="${status}"></label>
+						
 						<div>
-							<form th:action="@{/article/add}" th:object="${article}"
+							<form th:action="@{/articles/add}" th:object="${article}"
 								method="post">
 								<p>
 									<label>Tytuł:</label><br /> <input type="text"

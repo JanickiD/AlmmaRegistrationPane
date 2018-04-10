@@ -88,10 +88,10 @@
 															<tbody>
 																<tr th:each="article : ${articles}">
 																	<td th:text="${article.id}"></td>
-																	<td th:text="${article.date}"></td>
-																	<td th:text="${article.date}"></td>
-																	<td th:text="${article.date}"></td>
-																	<td th:text="${article.date}"></td>
+																	<td th:text="${{article.date}}"></td>
+																	<td th:text="${article.title}"></td>
+																	<td th:text="${article.author.email}"></td>
+																	<td th:text="${article.visible}"></td>
 																	<td><a th:href="'/articles/edit/'+article.id">Edycja</a></td>
 																</tr>
 															</tbody>

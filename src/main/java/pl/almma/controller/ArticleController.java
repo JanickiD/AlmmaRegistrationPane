@@ -1,8 +1,8 @@
 package pl.almma.controller;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,17 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.almma.model.Article;
 import pl.almma.repository.ArticleRepository;
+import pl.almma.service.ArticleService;
+import pl.almma.service.UserService;
 
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
 
 	private ArticleRepository articleRepository;
+	private UserService userService;
+	private ArticleService articleService;
+
 
 	@Autowired
-	public ArticleController(ArticleRepository articleRepository) {
+	public ArticleController(ArticleRepository articleRepository, UserService userService,
+			ArticleService articleService) {
 		super();
 		this.articleRepository = articleRepository;
+		this.userService = userService;
+		this.articleService = articleService;
 	}
 
 	@GetMapping("/add")
@@ -31,19 +39,25 @@ public class ArticleController {
 
 		model.addAttribute("article", new Article());
 
+
 		return "/articles/add";
 	}
 
 	@PostMapping("/add")
-	public String addArticle(@Valid @ModelAttribute Article article, BindingResult bindingResult, Model model) {
+	public String addArticle(@ModelAttribute Article article, BindingResult bindingResult, Model model, Pageable pageable) {
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("status", "Błąd w dodawaniu artykułu");
-			return "/admin/panel";
+			model.addAttribute("article", article);
+			model.addAttribute("status", "Błąd w dodawaniu artykułu!");
+			return "/articles/add";
 		}
 		
 		articleRepository.save(article);
+		model.addAttribute("users", userService.getAll(pageable));
+		model.addAttribute("articles", articleService.getAll(pageable));
 
 		return "/admin/panel";
 	}
+	
+	
 }

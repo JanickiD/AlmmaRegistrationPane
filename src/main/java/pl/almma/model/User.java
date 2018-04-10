@@ -54,7 +54,7 @@ public class User {
 	private String profileImageFileName;
 	
 	@OneToMany(mappedBy="author")
-	private Collection<Article> author;
+	private Collection<Article> articles;
 	
 	@ManyToOne
 	@JoinColumn(name="club_id")
