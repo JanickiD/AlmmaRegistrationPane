@@ -8,11 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.almma.model.Article;
-import pl.almma.repository.ArticleRepository;
 import pl.almma.service.ArticleService;
 import pl.almma.service.UserService;
 
@@ -20,16 +20,14 @@ import pl.almma.service.UserService;
 @RequestMapping("/articles")
 public class ArticleController {
 
-	private ArticleRepository articleRepository;
 	private UserService userService;
 	private ArticleService articleService;
 
 
 	@Autowired
-	public ArticleController(ArticleRepository articleRepository, UserService userService,
+	public ArticleController(UserService userService,
 			ArticleService articleService) {
 		super();
-		this.articleRepository = articleRepository;
 		this.userService = userService;
 		this.articleService = articleService;
 	}
@@ -52,11 +50,17 @@ public class ArticleController {
 			return "/articles/add";
 		}
 		
-		articleRepository.save(article);
+		articleService.saveArticle(article);
 		model.addAttribute("users", userService.getAll(pageable));
 		model.addAttribute("articles", articleService.getAll(pageable));
 
 		return "/admin/panel";
+	}
+	
+	@GetMapping("view/{id}")
+	public String viewArticle(@PathVariable long id, Model model) {
+		model.addAttribute("article", articleService.findById(id));
+		return "/articles/view";
 	}
 	
 	

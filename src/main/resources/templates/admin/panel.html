@@ -82,6 +82,7 @@
 																	<th>Tytuł</th>
 																	<th>Autor</th>
 																	<th>Widoczny</th>
+																	<th>Pokaż</th>
 																	<th>Edycja</th>
 																</tr>
 															</thead>
@@ -90,9 +91,10 @@
 																	<td th:text="${article.id}"></td>
 																	<td th:text="${{article.date}}"></td>
 																	<td th:text="${article.title}"></td>
-																	<td th:text="${article.author.email}"></td>
+																	<td th:text="${article.author.email} "></td>
 																	<td th:text="${article.visible}"></td>
-																	<td><a th:href="'/articles/edit/'+article.id">Edycja</a></td>
+																	<td><a th:href="${'/articles/view/'+article.id}">Pokaż</a></td>
+																	<td><a th:href="'/articles/edit/'">Edycja</a></td>
 																</tr>
 															</tbody>
 														</table>

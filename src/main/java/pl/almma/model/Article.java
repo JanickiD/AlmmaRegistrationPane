@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +23,7 @@ public class Article {
 	
 	private String title;
 	
+	@JoinColumn(name="author_id")
 	@ManyToOne
 	private User author;
 	
@@ -38,6 +39,9 @@ public class Article {
 		this.visible = visible;
 	}
 
+	
+
+	
 	public long getId() {
 		return id;
 	}
@@ -78,6 +82,8 @@ public class Article {
 		this.content = content;
 	}
 
+	
+
 	public Article(long id, Date date, String title, User author, String content, Boolean visible) {
 		super();
 		this.id = id;
@@ -97,6 +103,8 @@ public class Article {
 		return "Article [id=" + id + ", date=" + date + ", title=" + title + ", author=" + author + ", content="
 				+ content + ", visible=" + visible + "]";
 	}
+
+	
 
 	
 	

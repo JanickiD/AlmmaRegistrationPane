@@ -12,15 +12,27 @@ import pl.almma.repository.ArticleRepository;
 public class ArticleService {
 	
 	private ArticleRepository articleRepository;
+	private UserService userService;
 	
 	@Autowired
-	public ArticleService(ArticleRepository articleRepository) {
+	public ArticleService(ArticleRepository articleRepository, UserService userService) {
 		super();
 		this.articleRepository = articleRepository;
+		this.userService = userService;
 	}
 
 	public Page<Article> getAll(Pageable pageable){
 		return articleRepository.findAll(pageable);
+	}
+	
+	public Article saveArticle(Article article) {
+		article.setAuthor(userService.findLoggedUser());
+		return articleRepository.save(article);
+		
+	}
+	
+	public Article findById(long id) {
+		return articleRepository.findOne(id);
 	}
 
 }
