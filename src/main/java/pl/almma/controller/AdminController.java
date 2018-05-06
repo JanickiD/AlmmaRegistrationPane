@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.almma.model.User;
-import pl.almma.repository.ClubRepository;
 import pl.almma.service.ArticleService;
+import pl.almma.service.ClubService;
 import pl.almma.service.UserService;
 import pl.almma.tools.PeselValidator;
 
@@ -24,20 +24,21 @@ import pl.almma.tools.PeselValidator;
 public class AdminController {
 
 	private UserService userService;
-	private ClubRepository clubRepository;
+	private ClubService clubService;
 	private ArticleService articleService;
 
 	@Autowired
-	public AdminController(UserService userService, ClubRepository clubRepository, ArticleService articleService) {
+	public AdminController(UserService userService, ClubService clubService, ArticleService articleService) {
 		super();
 		this.userService = userService;
-		this.clubRepository = clubRepository;
+		this.clubService = clubService;
 		this.articleService = articleService;
 	}
 
 	@GetMapping("/panel")
 	public String panel(Model model, Pageable pageable) {
 		
+		model.addAttribute("clubs", clubService.getAll(pageable));
 		model.addAttribute("users", userService.getAll(pageable));
 		model.addAttribute("articles", articleService.getAll(pageable));
 		
@@ -57,7 +58,7 @@ public class AdminController {
 	public String editProfile(@PathVariable long id, Model model) {
 
 		model.addAttribute("user", userService.findById(id));
-		model.addAttribute("clubList", clubRepository.findAll());
+		model.addAttribute("clubList", clubService.getAll());
 		model.addAttribute("roles", userService.getAllRoles());
 
 		return "/admin/userEdit";
