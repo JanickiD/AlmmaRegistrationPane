@@ -46,12 +46,12 @@ public class AdminController {
 		return "/admin/panel";
 	}
 
-	@GetMapping("/view/{id}")
+	@GetMapping("/userView/{id}")
 	public String viewProfile(@PathVariable long id, Model model) {
 
 		model.addAttribute("user", userService.findById(id));
 
-		return "/admin/view";
+		return "/admin/userView";
 	}
 
 	@GetMapping("/userEdit/{id}")
@@ -85,4 +85,13 @@ public class AdminController {
 
 		return "/admin/panel";
 	}
+	
+	@GetMapping("/clubView/{id}")
+	public String viewClub(@PathVariable long id, Model model) {
+
+		model.addAttribute("club", clubService.findById(id));
+
+		return "/admin/clubView";
+	}
+	
 }

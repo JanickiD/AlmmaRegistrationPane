@@ -28,4 +28,8 @@ public class ClubService {
 		return clubRepository.findAll(pageable);
 	}
 	
+	public Club findById(long id) {
+		return clubRepository.findByClub_id(id);
+	}
+	
 }

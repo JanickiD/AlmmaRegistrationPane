@@ -125,9 +125,9 @@
 																			th:case="true">tak</label> <label th:case="false">nie</label>
 																		</td>
 																		<td class="center "><a
-																			th:href="${'/admin/view/'+club.id}">Zobacz</a></td>
+																			th:href="${'/admin/clubView/'+club.club_id}">Zobacz</a></td>
 																		<td class="center "><a
-																			th:href="${'/admin/clubEdit/'+club.id}">Edytuj</a></td>
+																			th:href="${'/admin/clubEdit/'+club.club_id}">Edytuj</a></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -313,7 +313,7 @@
 																	th:case="true">tak</label> <label th:case="false">nie</label>
 																</td>
 																<td class="center "><a
-																	th:href="${'/admin/view/'+user.id}">Zobacz</a></td>
+																	th:href="${'/admin/userView/'+user.id}">Zobacz</a></td>
 																<td class="center "><a
 																	th:href="${'/admin/userEdit/'+user.id}">Edytuj</a></td>
 															</tr>
