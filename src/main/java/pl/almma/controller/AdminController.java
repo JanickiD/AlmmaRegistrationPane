@@ -94,4 +94,13 @@ public class AdminController {
 		return "/admin/clubView";
 	}
 	
+	@GetMapping("/clubEdit/{id}")
+	public String editClub(@PathVariable long id, Model model) {
+
+		model.addAttribute("user", userService.findById(id));
+		model.addAttribute("clubList", clubService.getAll());
+		model.addAttribute("roles", userService.getAllRoles());
+
+		return "/admin/clubEdit";
+	}
 }
