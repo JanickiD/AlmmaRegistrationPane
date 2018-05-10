@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.almma.model.Club;
 import pl.almma.model.User;
 import pl.almma.service.ArticleService;
 import pl.almma.service.ClubService;
@@ -36,13 +37,12 @@ public class AdminController {
 	}
 
 	@GetMapping("/panel")
-	public String panel(Model model, Pageable pageable) {
-		
+	public String showPanel(Model model, Pageable pageable) {
+
 		model.addAttribute("clubs", clubService.getAll(pageable));
 		model.addAttribute("users", userService.getAll(pageable));
 		model.addAttribute("articles", articleService.getAll(pageable));
-		
-		
+
 		return "/admin/panel";
 	}
 
@@ -55,7 +55,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/userEdit/{id}")
-	public String editProfile(@PathVariable long id, Model model) {
+	public String editUserProfile(@PathVariable long id, Model model) {
 
 		model.addAttribute("user", userService.findById(id));
 		model.addAttribute("clubList", clubService.getAll());
@@ -65,7 +65,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/userEdit")
-	public String saveEditedProfile(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
+	public String saveEditedUserProfile(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
 			Pageable pageable) {
 
 		if (bindingResult.hasErrors()) {
@@ -85,7 +85,7 @@ public class AdminController {
 
 		return "/admin/panel";
 	}
-	
+
 	@GetMapping("/clubView/{id}")
 	public String viewClub(@PathVariable long id, Model model) {
 
@@ -93,14 +93,26 @@ public class AdminController {
 
 		return "/admin/clubView";
 	}
-	
+
 	@GetMapping("/clubEdit/{id}")
 	public String editClub(@PathVariable long id, Model model) {
 
-		model.addAttribute("user", userService.findById(id));
-		model.addAttribute("clubList", clubService.getAll());
-		model.addAttribute("roles", userService.getAllRoles());
+		model.addAttribute("club", clubService.findById(id));
+		model.addAttribute("trainers", userService.getTrainersList());
 
 		return "/admin/clubEdit";
+	}
+
+	@PostMapping("/clubEdit")
+	public String saveEditedClubProfile(@Valid @ModelAttribute Club club, BindingResult bindingResult, Model model,
+			Pageable pageable) {
+		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("status", "Błędne dane. Zweryfikuj ");
+			return "/admin/clubEdit";
+			
+		}
+
+		return "/admin/panel";
 	}
 }

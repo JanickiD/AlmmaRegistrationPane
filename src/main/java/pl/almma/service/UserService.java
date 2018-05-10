@@ -105,6 +105,10 @@ public class UserService {
 		return roleRepository.findAllRolesExceptAdmin();
 	}
 	
+	public List<User> getTrainersList(){
+		return userRepository.getTrainersList();
+	}
+	
 	public User setprofileImageFileName(User user, String fileName) {
 		user.setProfileImageFileName(fileName);
 		return userRepository.save(user);
