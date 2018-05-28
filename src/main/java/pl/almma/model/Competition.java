@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,18 +31,26 @@ public class Competition {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date date;
 	
+	@ManyToOne
+	@JoinColumn(name="status_id")
+	private CompetitionStatus status;
+	
 
 	public Competition() {
 		super();
 	}
 
-	public Competition(long id, String name, String city, Date date) {
+	
+	public Competition(long id, String name, String city, Date date, CompetitionStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.city = city;
 		this.date = date;
+		this.status = status;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -74,11 +84,23 @@ public class Competition {
 		this.date = date;
 	}
 
-	
+
+	public CompetitionStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(CompetitionStatus status) {
+		this.status = status;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Competition [id=" + id + ", name=" + name + ", city=" + city + ", date=" + date + "]";
+		return "Competition [id=" + id + ", name=" + name + ", city=" + city + ", date=" + date + ", status=" + status
+				+ "]";
 	}
+
 	
 
 }

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.almma.model.Club;
+import pl.almma.model.Competition;
 import pl.almma.model.User;
 import pl.almma.service.ArticleService;
 import pl.almma.service.ClubService;
+import pl.almma.service.CompetitionService;
 import pl.almma.service.UserService;
 import pl.almma.tools.PeselValidator;
 
@@ -27,13 +29,15 @@ public class AdminController {
 	private UserService userService;
 	private ClubService clubService;
 	private ArticleService articleService;
+	private CompetitionService competitionService;
 
 	@Autowired
-	public AdminController(UserService userService, ClubService clubService, ArticleService articleService) {
+	public AdminController(UserService userService, ClubService clubService, ArticleService articleService, CompetitionService competitionService) {
 		super();
 		this.userService = userService;
 		this.clubService = clubService;
 		this.articleService = articleService;
+		this.competitionService = competitionService;
 	}
 
 	@GetMapping("/panel")
@@ -42,6 +46,7 @@ public class AdminController {
 		model.addAttribute("clubs", clubService.getAll(pageable));
 		model.addAttribute("users", userService.getAll(pageable));
 		model.addAttribute("articles", articleService.getAll(pageable));
+		model.addAttribute("competitions" , competitionService.getAllCompetitions());
 
 		return "/admin/panel";
 	}
@@ -83,7 +88,7 @@ public class AdminController {
 		userService.editUser(user);
 		model.addAttribute("status", "Dane zawodnika zmodyfikowane poprawnie!");
 
-		return "/admin/panel";
+		return "redirect:/admin/panel";
 	}
 
 	@GetMapping("/clubView/{id}")
@@ -110,9 +115,35 @@ public class AdminController {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("status", "Błędne dane. Zweryfikuj ");
 			return "/admin/clubEdit";
-			
 		}
+		
+		clubService.clubEdit(club);		
+		
 
-		return "/admin/panel";
+		return "redirect:/admin/panel";
 	}
+	
+	@GetMapping("/addCompetition")
+	public String newCompetition(Model model) {
+		
+		model.addAttribute("competition", new Competition());
+		
+		return "/admin/addCompetition";
+	}
+	
+	@PostMapping("/addCompetition")
+	public String addCompetition(@Valid @ModelAttribute Competition competition, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("competition", competition);
+			return "/admin/addCompetition";
+		}
+		
+		competitionService.addCompetition(competition);
+		
+		return "redirect:/admin/panel";
+	}
+	
+
+	
 }
